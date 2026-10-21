@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vistora Video & Social</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #0f0f0f;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff0050;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #aaaaaa;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background-color: #ff0050;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vistora</h1>
+    <p>আপনার পছন্দের ভিডিও দেখুন এবং সামাজিক যোগাযোগ তৈরি করুন। শীঘ্রই আসছে!</p>
+    <button class="btn" onclick="alert('Vistora প্ল্যাটফর্মে আপনাকে স্বাগতম!')">স্বাগতম</button>
+</body>
+</html>
