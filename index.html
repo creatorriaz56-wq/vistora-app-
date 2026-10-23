@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -8,45 +9,80 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--p:#6750e8;--bg:#f5f6fb;--card:#fff;--txt:#202033;--muted:#74748a;--line:#e8e8f0}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:Arial,"Noto Sans Bengali",sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:11px;padding:10px 13px;background:var(--p);color:white;font-weight:600}
-button:disabled{opacity:.5}input,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--txt);margin:5px 0 10px}
-textarea{resize:vertical;min-height:70px}.muted{color:var(--muted);font-size:13px}.hidden{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Arial,"Noto Sans Bengali",sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:11px;padding:10px 13px;background:var(--p);color:white;font-weight:600}
+button:disabled{opacity:.5}
+input,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--txt);margin:5px 0 10px}
+textarea{resize:vertical;min-height:70px}
+.muted{color:var(--muted);font-size:13px}
+.hidden{display:none!important}
 header{position:sticky;top:0;z-index:5;background:var(--card);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
-.logo{font-size:22px;font-weight:900;color:var(--p)}.wrap{max-width:1100px;margin:auto;padding:14px}
+.logo{font-size:22px;font-weight:900;color:var(--p)}
+.wrap{max-width:1100px;margin:auto;padding:14px}
 .layout{display:grid;grid-template-columns:210px minmax(0,650px) 210px;gap:15px}
 .panel,.post,.authbox{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:14px;margin-bottom:13px}
 nav button{display:block;width:100%;text-align:left;background:transparent;color:var(--txt);margin:3px 0}
 nav button.active,nav button:hover{background:#eeeaff;color:var(--p)}
-.pill{display:inline-block;background:#eeeaff;color:var(--p);border-radius:20px;padding:5px 10px;font-size:12px}
-.row{display:flex;align-items:center;gap:9px}.between{justify-content:space-between}.grow{flex:1;min-width:0}
+.row{display:flex;align-items:center;gap:9px}
+.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
 .avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#e7e3ff;display:grid;place-items:center;font-weight:bold;color:var(--p);flex-shrink:0}
 .cover{height:130px;background:linear-gradient(120deg,#6750e8,#b8a8ff);border-radius:12px;background-size:cover;background-position:center}
-.post h3{margin:10px 0}.post video{width:100%;max-height:460px;background:#111;border-radius:12px;margin-top:8px}
-.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.actions button{background:#f0eff9;color:#38334e;font-size:13px}.actions button.on{background:#e1d9ff;color:#4c32cf}
-.storylist{display:flex;gap:10px;overflow:auto;padding:8px 0}.story{min-width:68px;text-align:center;font-size:12px;cursor:pointer}
+.post h3{margin:10px 0}
+.post video{width:100%;max-height:460px;background:#111;border-radius:12px;margin-top:8px}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.actions button{background:#f0eff9;color:#38334e;font-size:13px}
+.actions button.on{background:#e1d9ff;color:#4c32cf}
+.storylist{display:flex;gap:10px;overflow:auto;padding:8px 0}
+.story{min-width:68px;text-align:center;font-size:12px;cursor:pointer}
 .story .avatar{width:58px;height:58px;margin:0 auto 5px;border:3px solid #8d75ff}
-.smallbtn{padding:7px 10px;font-size:12px}.danger{background:#ffe7e7!important;color:#b42318!important}
-section h2{font-size:20px}.feedgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.smallbtn{padding:7px 10px;font-size:12px}
+.danger{background:#ffe7e7!important;color:#b42318!important}
 .notice{padding:10px;background:#f0efff;border-radius:10px;margin:8px 0}
 footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
-@media(max-width:850px){.layout{grid-template-columns:1fr}.leftside,.rightside{display:none}header{padding:10px}.wrap{padding:9px}.post{padding:11px}.feedgrid{grid-template-columns:1fr}}
+@media(max-width:850px){
+.layout{grid-template-columns:1fr}
+.leftside,.rightside{display:none}
+header{padding:10px}
+.wrap{padding:9px}
+.post{padding:11px}
+}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">▶ RiyazTube</div>
-  <div class="row"><span id="headerUser" class="muted">শিখুন · দেখুন · শেয়ার করুন</span><button id="headerAuth" onclick="showAuth()">লগইন</button></div>
+  <div class="row">
+    <span id="headerUser" class="muted">শিখুন · দেখুন · শেয়ার করুন</span>
+    <button id="headerAuth" onclick="showAuth()">লগইন</button>
+  </div>
 </header>
 
 <div class="wrap">
   <div id="authArea" class="authbox hidden">
-    <div class="row between"><h2 id="authTitle">RiyazTube-এ যোগ দিন</h2><button class="smallbtn" onclick="hideAuth()">বন্ধ করুন</button></div>
+    <div class="row between">
+      <h2 id="authTitle">RiyazTube-এ যোগ দিন</h2>
+      <button class="smallbtn" onclick="hideAuth()">বন্ধ করুন</button>
+    </div>
     <div id="authMessage" class="notice hidden"></div>
-    <div id="signupFields"><label>আপনার নাম</label><input id="fullName" placeholder="আপনার নাম"><label>ইউজারনেম</label><input id="username" placeholder="যেমন riyaz123"></div>
-    <label>ইমেইল</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com">
-    <div id="passwordField"><label>পাসওয়ার্ড</label><input id="password" type="password" autocomplete="current-password" placeholder="কমপক্ষে ৬ অক্ষর"></div>
-    <div id="otpField" class="hidden"><label>ইমেইলে আসা ৬ সংখ্যার OTP</label><input id="otp" inputmode="numeric" maxlength="6" placeholder="123456"></div>
+    <div id="signupFields">
+      <label>আপনার নাম</label>
+      <input id="fullName" placeholder="আপনার নাম">
+      <label>ইউজারনেম</label>
+      <input id="username" placeholder="যেমন riyaz123">
+    </div>
+    <label>ইমেইল</label>
+    <input id="email" type="email" autocomplete="email" placeholder="name@example.com">
+    <div id="passwordField">
+      <label>পাসওয়ার্ড</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="কমপক্ষে ৬ অক্ষর">
+    </div>
+    <div id="otpField" class="hidden">
+      <label>ইমেইলে আসা ৬ সংখ্যার OTP</label>
+      <input id="otp" inputmode="numeric" maxlength="6" placeholder="123456">
+    </div>
     <button id="authSubmit" onclick="submitAuth()">অ্যাকাউন্ট তৈরি করুন</button>
     <p class="muted" id="authSwitchText">আগে অ্যাকাউন্ট আছে? <a href="#" onclick="switchAuth('login');return false">লগইন করুন</a></p>
     <p class="muted">আপনার পাসওয়ার্ড বা OTP কাউকে দেবেন না।</p>
@@ -66,65 +102,105 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
           <button id="navSettings" onclick="showPage('Settings')">⚙️ সেটিংস</button>
         </nav>
       </div>
-      <div class="panel"><b>RiyazTube</b><p class="muted">ভিডিও দেখুন, শিখুন ও আপনার জ্ঞান ভাগ করে নিন।</p></div>
+      <div class="panel">
+        <b>RiyazTube</b>
+        <p class="muted">ভিডিও দেখুন, শিখুন ও আপনার জ্ঞান ভাগ করে নিন।</p>
+      </div>
     </aside>
 
     <main>
       <section id="pageHome">
         <div class="panel">
-          <div class="row between"><b>⭕ Stories</b><button class="smallbtn" onclick="showPage('Stories')">স্টোরি দিন</button></div>
-          <div id="storyStrip" class="storylist"><span class="muted">স্টোরি লোড হচ্ছে…</span></div>
+          <div class="row between">
+            <b>⭕ Stories</b>
+            <button class="smallbtn" onclick="showPage('Stories')">স্টোরি দিন</button>
+          </div>
+          <div id="storyStrip" class="storylist">স্টোরি লোড হচ্ছে…</div>
         </div>
         <div class="panel">
-          <b>আপনার মনে কী আছে?</b><textarea id="quickTitle" placeholder="ভিডিওর শিরোনাম বা পোস্টের কথা লিখুন…"></textarea>
-          <div class="row between"><span class="muted">ভিডিও শেয়ার করতে আপলোডে যান</span><button onclick="showPage('Upload')">ভিডিও আপলোড</button></div>
+          <b>আপনার মনে কী আছে?</b>
+          <textarea id="quickTitle" placeholder="ভিডিওর শিরোনাম বা পোস্টের কথা লিখুন…"></textarea>
+          <div class="row between">
+            <span class="muted">ভিডিও শেয়ার করতে আপলোডে যান</span>
+            <button onclick="showPage('Upload')">ভিডিও আপলোড</button>
+          </div>
         </div>
-        <div class="row between"><h2>সাম্প্রতিক ভিডিও</h2><button class="smallbtn" onclick="loadFeed()">রিফ্রেশ</button></div>
+        <div class="row between">
+          <h2>সাম্প্রতিক ভিডিও</h2>
+          <button class="smallbtn" onclick="loadFeed()">রিফ্রেশ</button>
+        </div>
         <div id="feed"><div class="panel">ফিড লোড হচ্ছে…</div></div>
       </section>
 
       <section id="pageReels" class="hidden">
-        <h2>🎬 Reels</h2><p class="muted">ছোট ভিডিওগুলো এখানে দেখুন।</p><div id="reelsFeed"></div>
+        <h2>🎬 Reels</h2>
+        <p class="muted">ছোট ভিডিওগুলো এখানে দেখুন।</p>
+        <div id="reelsFeed"></div>
       </section>
 
       <section id="pageUpload" class="hidden">
-        <div class="panel"><h2>ভিডিও আপলোড করুন</h2>
-          <label>ভিডিওর শিরোনাম *</label><input id="videoTitle" maxlength="150" placeholder="ভিডিওর নাম">
-          <label>বিবরণ</label><textarea id="videoDescription" placeholder="ভিডিও সম্পর্কে লিখুন"></textarea>
-          <label>ভিডিও ফাইল *</label><input id="videoFile" type="file" accept="video/*">
+        <div class="panel">
+          <h2>ভিডিও আপলোড করুন</h2>
+          <label>ভিডিওর শিরোনাম *</label>
+          <input id="videoTitle" maxlength="150" placeholder="ভিডিওর নাম">
+          <label>বিবরণ</label>
+          <textarea id="videoDescription" placeholder="ভিডিও সম্পর্কে লিখুন"></textarea>
+          <label>ভিডিও ফাইল *</label>
+          <input id="videoFile" type="file" accept="video/*">
           <p class="muted">বড় ফাইল আপলোডে সময় লাগতে পারে। Storage-এর সীমা আপনার Supabase প্ল্যানের ওপর নির্ভর করবে।</p>
-          <button id="uploadBtn" onclick="uploadVideo()">ভিডিও প্রকাশ করুন</button><div id="uploadStatus" class="muted"></div>
+          <button id="uploadBtn" onclick="uploadVideo()">ভিডিও প্রকাশ করুন</button>
+          <div id="uploadStatus" class="muted"></div>
         </div>
       </section>
 
       <section id="pageStories" class="hidden">
-        <div class="panel"><h2>⭕ নতুন Story</h2><p class="muted">ছবি বা ছোট ভিডিও স্টোরি দিন। ডিফল্টভাবে ২৪ ঘণ্টা পর মেয়াদ শেষ হবে।</p>
-          <label>ছবি বা ভিডিও</label><input id="storyFile" type="file" accept="image/*,video/*">
-          <button onclick="uploadStory()">স্টোরি প্রকাশ করুন</button><div id="storyStatus" class="muted"></div>
-        </div><h2>সাম্প্রতিক Stories</h2><div id="storiesList"></div>
+        <div class="panel">
+          <h2>⭕ নতুন Story</h2>
+          <p class="muted">ছবি বা ছোট ভিডিও স্টোরি দিন। ডিফল্টভাবে ২৪ ঘণ্টা পর মেয়াদ শেষ হবে।</p>
+          <label>ছবি বা ভিডিও</label>
+          <input id="storyFile" type="file" accept="image/*,video/*">
+          <button onclick="uploadStory()">স্টোরি প্রকাশ করুন</button>
+          <div id="storyStatus" class="muted"></div>
+        </div>
+        <h2>সাম্প্রতিক Stories</h2>
+        <div id="storiesList"></div>
       </section>
 
-      <section id="pageSaved" class="hidden"><h2>🔖 Saved Posts</h2><div id="savedFeed"></div></section>
-      <section id="pageNotifications" class="hidden"><h2>🔔 নোটিফিকেশন</h2><div id="notificationsList"></div></section>
+      <section id="pageSaved" class="hidden">
+        <h2>🔖 Saved Posts</h2><div id="savedFeed"></div>
+      </section>
+      <section id="pageNotifications" class="hidden">
+        <h2>🔔 নোটিফিকেশন</h2><div id="notificationsList"></div>
+      </section>
 
       <section id="pageProfile" class="hidden">
-        <div class="panel"><div id="profileCover" class="cover"></div>
-          <div class="row" style="margin-top:-22px;padding-left:12px"><img id="profileAvatar" class="avatar" alt="প্রোফাইল ছবি"><div class="grow"></div><button class="smallbtn" onclick="editProfile()">প্রোফাইল সম্পাদনা</button></div>
-          <h2 id="profileName">আপনার প্রোফাইল</h2><p id="profileBio" class="muted"></p><p id="profileUsername" class="muted"></p>
+        <div class="panel">
+          <div id="profileCover" class="cover"></div>
+          <div class="row" style="margin-top:-22px;padding-left:12px">
+            <img id="profileAvatar" class="avatar" alt="প্রোফাইল ছবি">
+            <div class="grow"></div>
+            <button class="smallbtn" onclick="editProfile()">প্রোফাইল সম্পাদনা</button>
+          </div>
+          <h2 id="profileName">আপনার প্রোফাইল</h2>
+          <p id="profileBio" class="muted"></p>
+          <p id="profileUsername" class="muted"></p>
           <div class="row"><span id="profileStats" class="muted"></span></div>
         </div>
-        <div class="panel"><h3>প্রোফাইল আপডেট</h3>
+        <div class="panel">
+          <h3>প্রোফাইল আপডেট</h3>
           <label>নাম</label><input id="editName" placeholder="আপনার নাম">
           <label>ইউজারনেম</label><input id="editUsername" placeholder="username">
           <label>বায়ো</label><textarea id="editBio" placeholder="নিজের সম্পর্কে লিখুন"></textarea>
           <label>প্রোফাইল ছবি</label><input id="avatarFile" type="file" accept="image/*">
           <label>কভার ছবি</label><input id="coverFile" type="file" accept="image/*">
           <button onclick="saveProfile()">পরিবর্তন সংরক্ষণ</button>
-        </div><h2>আপনার ভিডিও</h2><div id="myVideos"></div>
+        </div>
+        <h2>আপনার ভিডিও</h2><div id="myVideos"></div>
       </section>
 
       <section id="pageSettings" class="hidden">
-        <div class="panel"><h2>⚙️ সেটিংস</h2>
+        <div class="panel">
+          <h2>⚙️ সেটিংস</h2>
           <p>বর্তমান অ্যাকাউন্ট: <b id="settingsEmail"></b></p>
           <button onclick="loadProfile()">প্রোফাইল রিফ্রেশ</button>
           <button class="danger" onclick="logout()">লগআউট</button>
@@ -134,15 +210,20 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
     </main>
 
     <aside class="rightside">
-      <div class="panel"><b>আপনার অ্যাকাউন্ট</b><p id="sideUser" class="muted"></p><button class="smallbtn" onclick="showPage('Profile')">প্রোফাইল দেখুন</button></div>
-      <div class="panel"><b>কমিউনিটি গাইড</b><p class="muted">অন্যকে সম্মান করুন। কপিরাইটযুক্ত ভিডিও অনুমতি ছাড়া আপলোড করবেন না।</p></div>
+      <div class="panel">
+        <b>আপনার অ্যাকাউন্ট</b><p id="sideUser" class="muted"></p>
+        <button class="smallbtn" onclick="showPage('Profile')">প্রোফাইল দেখুন</button>
+      </div>
+      <div class="panel">
+        <b>কমিউনিটি গাইড</b>
+        <p class="muted">অন্যকে সম্মান করুন। কপিরাইটযুক্ত ভিডিও অনুমতি ছাড়া আপলোড করবেন না।</p>
+      </div>
     </aside>
   </div>
 </div>
 <footer>RiyazTube · Learn, Watch & Share</footer>
 
 <script>
-/* Supabase project configuration */
 const SUPABASE_URL = "https://azzluxvjezivowthbtqa.supabase.co";
 const SUPABASE_KEY = "sb_publishable_-eF7bqxRA7VEg-GddY5R1A_gHrlU0Gv";
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -156,11 +237,18 @@ let savedIds = new Set();
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const msg = (id, text, bad=false) => { const e=$(id); if(e){e.textContent=text;e.style.color=bad?"#c0392b":"#22834a";} };
+const msg = (id,text,bad=false) => {
+  const e=$(id);
+  if(e){e.textContent=text;e.style.color=bad?"#c0392b":"#22834a";}
+};
 const notify = text => alert(text);
 
-function showAuth(){ $("authArea").classList.remove("hidden"); $("authArea").scrollIntoView({behavior:"smooth"}); }
+function showAuth(){
+  $("authArea").classList.remove("hidden");
+  $("authArea").scrollIntoView({behavior:"smooth"});
+}
 function hideAuth(){ $("authArea").classList.add("hidden"); }
+
 function switchAuth(mode){
   authMode=mode;
   $("authTitle").textContent=mode==="login"?"লগইন করুন":"RiyazTube-এ যোগ দিন";
@@ -168,9 +256,15 @@ function switchAuth(mode){
   $("passwordField").classList.remove("hidden");
   $("otpField").classList.add("hidden");
   $("authSubmit").textContent=mode==="login"?"লগইন":"অ্যাকাউন্ট তৈরি করুন";
-  $("authSwitchText").innerHTML=mode==="login"?'নতুন ব্যবহারকারী? <a href="#" onclick="switchAuth(\\'signup\\');return false">অ্যাকাউন্ট তৈরি করুন</a>':'আগে অ্যাকাউন্ট আছে? <a href="#" onclick="switchAuth(\\'login\\');return false">লগইন করুন</a>';
+  $("authSwitchText").innerHTML=mode==="login"
+    ?'নতুন ব্যবহারকারী? <a href="#" onclick="switchAuth(\'signup\');return false">অ্যাকাউন্ট তৈরি করুন</a>'
+    :'আগে অ্যাকাউন্ট আছে? <a href="#" onclick="switchAuth(\'login\');return false">লগইন করুন</a>';
   $("authMessage").classList.add("hidden");
 }
+</script>
+</body>
+  </html>
+        
 async function submitAuth(){
   const email=$("email").value.trim().toLowerCase();
   const password=$("password").value;
@@ -184,66 +278,99 @@ async function submitAuth(){
       if(error) throw error;
       currentUser=data.user;
       notify("ইমেইল যাচাই সফল হয়েছে!");
-      hideAuth(); await startApp(); return;
+      hideAuth();
+      await startApp();
+      return;
     }
-    if(!email || !password) throw new Error("ইমেইল ও পাসওয়ার্ড লিখুন।");
+    if(!email||!password) throw new Error("ইমেইল ও পাসওয়ার্ড লিখুন।");
     if(authMode==="signup"){
       const fullName=$("fullName").value.trim();
       const username=$("username").value.trim().toLowerCase().replace(/[^a-z0-9_.]/g,"");
-      if(!fullName || !username) throw new Error("নাম ও ইউজারনেম লিখুন।");
+      if(!fullName||!username) throw new Error("নাম ও ইউজারনেম লিখুন।");
       if(password.length<6) throw new Error("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
-      const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:fullName,username}}});
+      const {data,error}=await db.auth.signUp({
+        email,password,
+        options:{data:{full_name:fullName,username}}
+      });
       if(error) throw error;
       if(data.session){
-        currentUser=data.user; hideAuth(); await startApp();
+        currentUser=data.user;
+        hideAuth();
+        await startApp();
       }else{
-        pendingEmail=email; authMode="verify";
-        $("signupFields").classList.add("hidden"); $("passwordField").classList.add("hidden"); $("otpField").classList.remove("hidden");
+        pendingEmail=email;
+        authMode="verify";
+        $("signupFields").classList.add("hidden");
+        $("passwordField").classList.add("hidden");
+        $("otpField").classList.remove("hidden");
         $("authTitle").textContent="ইমেইল OTP যাচাই";
         $("authSubmit").textContent="OTP যাচাই করুন";
-        $("authSwitchText").innerHTML='ইমেইলে ৬ সংখ্যার কোড পাঠানো হয়েছে।';
+        $("authSwitchText").textContent="ইমেইলে পাঠানো ৬ সংখ্যার কোড লিখুন।";
         msg("authMessage","আপনার ইমেইল ইনবক্সে আসা ৬ সংখ্যার OTP লিখুন।");
         $("authMessage").classList.remove("hidden");
       }
     }else{
       const {data,error}=await db.auth.signInWithPassword({email,password});
       if(error) throw error;
-      currentUser=data.user; hideAuth(); await startApp();
+      currentUser=data.user;
+      hideAuth();
+      await startApp();
     }
-  }catch(e){msg("authMessage",e.message||"সমস্যা হয়েছে। আবার চেষ্টা করুন।",true);$("authMessage").classList.remove("hidden");}
-  finally{btn.disabled=false;}
+  }catch(e){
+    msg("authMessage",e.message||"সমস্যা হয়েছে। আবার চেষ্টা করুন।",true);
+    $("authMessage").classList.remove("hidden");
+  }finally{
+    btn.disabled=false;
+  }
 }
 
 async function logout(){
   const {error}=await db.auth.signOut();
   if(error) return notify(error.message);
-  currentUser=null; currentProfile=null;
-  $("appArea").classList.add("hidden"); showAuth(); switchAuth("login");
-  $("headerAuth").classList.remove("hidden"); $("headerUser").textContent="শিখুন · দেখুন · শেয়ার করুন";
+  currentUser=null;
+  currentProfile=null;
+  $("appArea").classList.add("hidden");
+  showAuth();
+  switchAuth("login");
+  $("headerAuth").classList.remove("hidden");
+  $("headerUser").textContent="শিখুন · দেখুন · শেয়ার করুন";
 }
+
 async function startApp(){
   if(!currentUser) return;
-  $("appArea").classList.remove("hidden"); $("headerAuth").classList.add("hidden");
+  $("appArea").classList.remove("hidden");
+  $("headerAuth").classList.add("hidden");
   $("headerUser").textContent=currentUser.email||"RiyazTube";
   $("settingsEmail").textContent=currentUser.email||"";
   $("sideUser").textContent=currentUser.email||"";
   await ensureProfile();
-  await Promise.allSettled([loadFeed(),loadProfile(),loadStories(),loadSavedIds(),loadNotifications()]);
+  await Promise.allSettled([
+    loadFeed(),loadProfile(),loadStories(),loadSavedIds(),loadNotifications()
+  ]);
   showPage("Home");
 }
+
 async function ensureProfile(){
-  const {data,error}=await db.from("profiles").select("*").eq("id",currentUser.id).maybeSingle();
+  const {data,error}=await db.from("profiles")
+    .select("*").eq("id",currentUser.id).maybeSingle();
   if(error) console.warn("Profile read:",error.message);
   if(data){currentProfile=data;return;}
   const meta=currentUser.user_metadata||{};
-  const row={id:currentUser.id,username:meta.username||("user_"+currentUser.id.slice(0,8)),full_name:meta.full_name||"নতুন ব্যবহারকারী",bio:""};
+  const row={
+    id:currentUser.id,
+    username:meta.username||("user_"+currentUser.id.slice(0,8)),
+    full_name:meta.full_name||"নতুন ব্যবহারকারী",
+    bio:""
+  };
   const r=await db.from("profiles").upsert(row,{onConflict:"id"}).select().maybeSingle();
   if(!r.error) currentProfile=r.data||row;
 }
+
 function showPage(name){
   ["Home","Reels","Upload","Stories","Saved","Notifications","Profile","Settings"].forEach(n=>{
     $("page"+n).classList.toggle("hidden",n!==name);
-    const nav=$("nav"+n); if(nav) nav.classList.toggle("active",n===name);
+    const nav=$("nav"+n);
+    if(nav) nav.classList.toggle("active",n===name);
   });
   if(name==="Profile") loadProfile();
   if(name==="Saved") loadSaved();
@@ -251,39 +378,60 @@ function showPage(name){
   if(name==="Stories") loadStories();
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
 async function videoPublicUrl(path){
   if(!path) return "";
   if(/^https?:\/\//i.test(path)) return path;
   const {data}=db.storage.from("videos").getPublicUrl(path);
   return data?.publicUrl||"";
 }
+
 async function loadFeed(){
   $("feed").innerHTML='<div class="panel">ভিডিও লোড হচ্ছে…</div>';
-  const {data,error}=await db.from("videos").select("*").order("created_at",{ascending:false}).limit(60);
-  if(error){$("feed").innerHTML='<div class="panel">ভিডিও লোড করা যায়নি: '+esc(error.message)+'</div>';return;}
+  const {data,error}=await db.from("videos")
+    .select("*").order("created_at",{ascending:false}).limit(60);
+  if(error){
+    $("feed").innerHTML='<div class="panel">ভিডিও লোড করা যায়নি: '+esc(error.message)+'</div>';
+    return;
+  }
   allVideos=data||[];
   const ids=[...new Set(allVideos.map(v=>v.user_id).filter(Boolean))];
   let profiles={};
-  if(ids.length){const p=await db.from("profiles").select("id,username,full_name,avatar_url").in("id",ids);(p.data||[]).forEach(x=>profiles[x.id]=x);}
-  const likeRes=await db.from("video_likes").select("video_id,user_id").eq("user_id",currentUser.id);
+  if(ids.length){
+    const p=await db.from("profiles")
+      .select("id,username,full_name,avatar_url").in("id",ids);
+    (p.data||[]).forEach(x=>profiles[x.id]=x);
+  }
+  const likeRes=await db.from("video_likes")
+    .select("video_id,user_id").eq("user_id",currentUser.id);
   const liked=new Set((likeRes.data||[]).map(x=>String(x.video_id)));
-  const savedRes=await db.from("saved_posts").select("video_id").eq("user_id",currentUser.id);
+  const savedRes=await db.from("saved_posts")
+    .select("video_id").eq("user_id",currentUser.id);
   savedIds=new Set((savedRes.data||[]).map(x=>String(x.video_id)));
-  const cards=await Promise.all(allVideos.map(v=>videoCard(v,profiles[v.user_id],liked.has(String(v.id)),savedIds.has(String(v.id)))));
+  const cards=await Promise.all(allVideos.map(v=>
+    videoCard(v,profiles[v.user_id],liked.has(String(v.id)),savedIds.has(String(v.id)))
+  ));
   $("feed").innerHTML=cards.join("")||'<div class="panel">এখনো কোনো ভিডিও নেই। প্রথম ভিডিওটি আপলোড করুন!</div>';
   $("reelsFeed").innerHTML=cards.join("")||'<div class="panel">এখনো কোনো ভিডিও নেই।</div>';
   const mine=allVideos.filter(v=>v.user_id===currentUser.id);
-  $("myVideos").innerHTML=(await Promise.all(mine.map(v=>videoCard(v,currentProfile,false,savedIds.has(String(v.id)))))).join("")||'<div class="panel">আপনি এখনো ভিডিও আপলোড করেননি।</div>';
+  $("myVideos").innerHTML=(await Promise.all(mine.map(v=>
+    videoCard(v,currentProfile,false,savedIds.has(String(v.id)))
+  ))).join("")||'<div class="panel">আপনি এখনো ভিডিও আপলোড করেননি।</div>';
 }
+
 async function videoCard(v,p,liked=false,saved=false){
   const url=await videoPublicUrl(v.storage_path||v.video_url||v.url);
   const owner=p?.full_name||p?.username||"RiyazTube ব্যবহারকারী";
-  const avatar=p?.avatar_url?`<img class="avatar" src="${esc(p.avatar_url)}" alt="">`:`<div class="avatar">${esc(owner.slice(0,1))}</div>`;
+  const avatar=p?.avatar_url
+    ?`<img class="avatar" src="${esc(p.avatar_url)}" alt="">`
+    :`<div class="avatar">${esc(owner.slice(0,1))}</div>`;
   return `<article class="post" id="video-${esc(v.id)}">
-    <div class="row">${avatar}<div class="grow"><b>${esc(owner)}</b><div class="muted">${esc(v.created_at?new Date(v.created_at).toLocaleString("bn-BD"):"")}</div></div>
+    <div class="row">${avatar}<div class="grow"><b>${esc(owner)}</b>
+    <div class="muted">${esc(v.created_at?new Date(v.created_at).toLocaleString("bn-BD"):"")}</div></div>
     ${v.user_id===currentUser.id?`<button class="smallbtn danger" onclick="deleteVideo('${esc(v.id)}','${esc(v.storage_path||"")}')">মুছুন</button>`:""}
     </div>
-    <h3>${esc(v.title||"শিরোনামহীন ভিডিও")}</h3>${v.description?`<p>${esc(v.description)}</p>`:""}
+    <h3>${esc(v.title||"শিরোনামহীন ভিডিও")}</h3>
+    ${v.description?`<p>${esc(v.description)}</p>`:""}
     ${url?`<video controls playsinline preload="metadata" src="${esc(url)}"></video>`:'<p class="muted">ভিডিওর লিংক পাওয়া যায়নি।</p>'}
     <div class="actions">
       <button class="${liked?"on":""}" onclick="toggleLike('${esc(v.id)}')">👍 লাইক</button>
@@ -292,24 +440,359 @@ async function videoCard(v,p,liked=false,saved=false){
       <button class="${saved?"on":""}" onclick="toggleSave('${esc(v.id)}')">${saved?"🔖 সংরক্ষিত":"🔖 সেভ"}</button>
       ${v.user_id!==currentUser.id?`<button onclick="followUser('${esc(v.user_id)}')">＋ ফলো</button>`:""}
     </div>
-    <div id="comments-${esc(v.id)}" class="hidden"><div id="commentList-${esc(v.id)}"></div><textarea id="commentText-${esc(v.id)}" placeholder="কমেন্ট লিখুন…"></textarea><button onclick="addComment('${esc(v.id)}')">কমেন্ট পাঠান</button></div>
+    <div id="comments-${esc(v.id)}" class="hidden">
+      <div id="commentList-${esc(v.id)}"></div>
+      <textarea id="commentText-${esc(v.id)}" placeholder="কমেন্ট লিখুন…"></textarea>
+      <button onclick="addComment('${esc(v.id)}')">কমেন্ট পাঠান</button>
+    </div>
   </article>`;
 }
+
 async function uploadVideo(){
-  const file=$("videoFile").files[0],title=$("videoTitle").value.trim(),description=$("videoDescription").value.trim();
+  const file=$("videoFile").files[0];
+  const title=$("videoTitle").value.trim();
+  const description=$("videoDescription").value.trim();
   if(!file||!title) return notify("ভিডিও ফাইল ও শিরোনাম দিন।");
   if(!file.type.startsWith("video/")) return notify("একটি ভিডিও ফাইল নির্বাচন করুন।");
-  const btn=$("uploadBtn");btn.disabled=true;msg("uploadStatus","ভিডিও আপলোড হচ্ছে…");
+  const btn=$("uploadBtn");
+  btn.disabled=true;
+  msg("uploadStatus","ভিডিও আপলোড হচ্ছে…");
   try{
     const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
     const path=`${currentUser.id}/${Date.now()}_${safe}`;
-    const {error:upErr}=await db.storage.from("videos").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+    const {error:upErr}=await db.storage.from("videos").upload(path,file,{
+      cacheControl:"3600",upsert:false,contentType:file.type
+    });
     if(upErr) throw upErr;
-    const {error}=await db.from("videos").insert({user_id:currentUser.id,title,description,storage_path:path});
-    if(error){await db.storage.from("videos").remove([path]);throw error;}
-    $("videoTitle").value="";$("videoDescription").value="";$("videoFile").value="";
-    msg("uploadStatus","ভিডিও প্রকাশ হয়েছে!");await loadFeed();showPage("Home");
-  }catch(e){msg("uploadStatus",e.message||"আপলোড ব্যর্থ হয়েছে।",true);}
-  finally{btn.disabled=false;}
+    const {error}=await db.from("videos").insert({
+      user_id:currentUser.id,title,description,storage_path:path
+    });
+    if(error){
+      await db.storage.from("videos").remove([path]);
+      throw error;
+    }
+    $("videoTitle").value="";
+    $("videoDescription").value="";
+    $("videoFile").value="";
+    msg("uploadStatus","ভিডিও প্রকাশ হয়েছে!");
+    await loadFeed();
+    showPage("Home");
+  }catch(e){
+    msg("uploadStatus",e.message||"আপলোড ব্যর্থ হয়েছে।",true);
+  }finally{
+    btn.disabled=false;
+  }
 }
-async functio
+        
+async function toggleLike(videoId){
+  const {data,error}=await db.from("video_likes")
+    .select("video_id").eq("video_id",videoId).eq("user_id",currentUser.id).maybeSingle();
+  if(error) return notify("লাইক যাচাই করা যায়নি: "+error.message);
+  if(data){
+    const r=await db.from("video_likes").delete()
+      .eq("video_id",videoId).eq("user_id",currentUser.id);
+    if(r.error) return notify(r.error.message);
+  }else{
+    const r=await db.from("video_likes").insert({video_id:videoId,user_id:currentUser.id});
+    if(r.error) return notify(r.error.message);
+  }
+  await loadFeed();
+}
+
+async function toggleComments(videoId){
+  const box=$("comments-"+videoId);
+  if(!box) return;
+  box.classList.toggle("hidden");
+  if(!box.classList.contains("hidden")) await loadComments(videoId);
+}
+
+async function loadComments(videoId){
+  const list=$("commentList-"+videoId);
+  if(!list) return;
+  list.innerHTML='<p class="muted">কমেন্ট লোড হচ্ছে…</p>';
+  const {data,error}=await db.from("video_comments")
+    .select("*").eq("video_id",videoId).order("created_at",{ascending:true});
+  if(error){
+    list.innerHTML='<p class="muted">কমেন্ট লোড করা যায়নি: '+esc(error.message)+'</p>';
+    return;
+  }
+  const ids=[...new Set((data||[]).map(x=>x.user_id).filter(Boolean))];
+  let names={};
+  if(ids.length){
+    const r=await db.from("profiles").select("id,username,full_name").in("id",ids);
+    (r.data||[]).forEach(p=>names[p.id]=p.full_name||p.username||"ব্যবহারকারী");
+  }
+  list.innerHTML=(data||[]).map(c=>
+    `<div class="notice"><b>${esc(names[c.user_id]||"ব্যবহারকারী")}</b><p>${esc(c.comment||c.content||"")}</p></div>`
+  ).join("")||'<p class="muted">এখনো কোনো কমেন্ট নেই।</p>';
+}
+
+async function addComment(videoId){
+  const input=$("commentText-"+videoId);
+  const comment=input.value.trim();
+  if(!comment) return notify("কমেন্ট লিখুন।");
+  const {error}=await db.from("video_comments").insert({
+    video_id:videoId,user_id:currentUser.id,comment
+  });
+  if(error) return notify("কমেন্ট পাঠানো যায়নি: "+error.message);
+  input.value="";
+  await loadComments(videoId);
+}
+
+async function shareVideo(videoId){
+  const url=location.origin+location.pathname+"?video="+encodeURIComponent(videoId);
+  try{
+    if(navigator.share) await navigator.share({title:"RiyazTube ভিডিও",url});
+    else if(navigator.clipboard){
+      await navigator.clipboard.writeText(url);
+      notify("ভিডিওর লিংক কপি হয়েছে।");
+    }else notify("এই লিংকটি শেয়ার করুন: "+url);
+  }catch(e){
+    if(e.name!=="AbortError") notify("শেয়ার করা যায়নি।");
+  }
+}
+
+async function deleteVideo(videoId,path){
+  if(!confirm("আপনি কি এই ভিডিওটি মুছে ফেলতে চান?")) return;
+  const {error}=await db.from("videos").delete()
+    .eq("id",videoId).eq("user_id",currentUser.id);
+  if(error) return notify("ভিডিও মুছতে পারেনি: "+error.message);
+  if(path) await db.storage.from("videos").remove([path]);
+  notify("ভিডিও মুছে ফেলা হয়েছে।");
+  await loadFeed();
+}
+
+async function loadSavedIds(){
+  const {data,error}=await db.from("saved_posts")
+    .select("video_id").eq("user_id",currentUser.id);
+  if(!error) savedIds=new Set((data||[]).map(x=>String(x.video_id)));
+}
+
+async function toggleSave(videoId){
+  const exists=savedIds.has(String(videoId));
+  if(exists){
+    const {error}=await db.from("saved_posts").delete()
+      .eq("user_id",currentUser.id).eq("video_id",videoId);
+    if(error) return notify("সেভ সরানো যায়নি: "+error.message);
+    savedIds.delete(String(videoId));
+  }else{
+    const {error}=await db.from("saved_posts").insert({
+      user_id:currentUser.id,video_id:videoId
+    });
+    if(error) return notify("সেভ করা যায়নি: "+error.message);
+    savedIds.add(String(videoId));
+  }
+  await loadFeed();
+}
+
+async function loadSaved(){
+  $("savedFeed").innerHTML='<div class="panel">সেভ করা ভিডিও লোড হচ্ছে…</div>';
+  const {data,error}=await db.from("saved_posts")
+    .select("video_id").eq("user_id",currentUser.id);
+  if(error){
+    $("savedFeed").innerHTML='<div class="panel">Saved Posts টেবিল পাওয়া যায়নি বা অনুমতি নেই। Supabase-এ saved_posts টেবিল ও RLS policy তৈরি করতে হবে।</div>';
+    return;
+  }
+  const ids=(data||[]).map(x=>x.video_id);
+  if(!ids.length){
+    $("savedFeed").innerHTML='<div class="panel">এখনো কোনো ভিডিও সেভ করেননি।</div>';
+    return;
+  }
+  const {data:videos,error:ve}=await db.from("videos").select("*").in("id",ids);
+  if(ve) return $("savedFeed").textContent=ve.message;
+  const cards=await Promise.all((videos||[]).map(v=>videoCard(v,currentProfile,false,true)));
+  $("savedFeed").innerHTML=cards.join("")||'<div class="panel">সেভ করা ভিডিও পাওয়া যায়নি।</div>';
+}
+
+async function followUser(userId){
+  if(userId===currentUser.id) return;
+  const {data,error}=await db.from("follows")
+    .select("follower_id").eq("follower_id",currentUser.id)
+    .eq("following_id",userId).maybeSingle();
+  if(error) return notify("ফলো সুবিধার জন্য follows টেবিল ও RLS policy যাচাই করুন।");
+  if(data){
+    const r=await db.from("follows").delete()
+      .eq("follower_id",currentUser.id).eq("following_id",userId);
+    if(r.error) return notify(r.error.message);
+    notify("আনফলো করা হয়েছে।");
+  }else{
+    const r=await db.from("follows").insert({
+      follower_id:currentUser.id,following_id:userId
+    });
+    if(r.error) return notify(r.error.message);
+    notify("ফলো করা হয়েছে।");
+  }
+}
+
+async function uploadStory(){
+  const file=$("storyFile").files[0];
+  if(!file) return notify("ছবি বা ভিডিও নির্বাচন করুন।");
+  if(!file.type.startsWith("image/")&&!file.type.startsWith("video/"))
+    return notify("ছবি বা ভিডিও ফাইল নির্বাচন করুন।");
+  msg("storyStatus","স্টোরি আপলোড হচ্ছে…");
+  try{
+    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const path=`${currentUser.id}/stories/${Date.now()}_${safe}`;
+    const {error:upErr}=await db.storage.from("videos").upload(path,file,{
+      upsert:false,contentType:file.type
+    });
+    if(upErr) throw upErr;
+    const {error}=await db.from("stories").insert({
+      user_id:currentUser.id,media_path:path,
+      expires_at:new Date(Date.now()+24*60*60*1000).toISOString()
+    });
+    if(error){
+      await db.storage.from("videos").remove([path]);
+      throw error;
+    }
+    $("storyFile").value="";
+    msg("storyStatus","স্টোরি প্রকাশ হয়েছে!");
+    await loadStories();
+  }catch(e){
+    msg("storyStatus",e.message||"স্টোরি আপলোড ব্যর্থ হয়েছে।",true);
+  }
+}
+
+async function loadStories(){
+  const strip=$("storyStrip");
+  const list=$("storiesList");
+  const {data,error}=await db.from("stories").select("*")
+    .gt("expires_at",new Date().toISOString())
+    .order("created_at",{ascending:false}).limit(30);
+  if(error){
+    strip.innerHTML='<span class="muted">Stories টেবিল বা অনুমতি যাচাই করুন।</span>';
+    list.innerHTML='<div class="panel">স্টোরি লোড করা যায়নি।</div>';
+    return;
+  }
+  const stories=data||[];
+  if(!stories.length){
+    strip.innerHTML='<span class="muted">এখনো কোনো স্টোরি নেই। প্রথম স্টোরি দিন!</span>';
+    list.innerHTML='<div class="panel">এখনো কোনো স্টোরি নেই।</div>';
+    return;
+  }
+  const ids=[...new Set(stories.map(s=>s.user_id))];
+  const p=await db.from("profiles").select("id,username,full_name,avatar_url").in("id",ids);
+  const profiles={};
+  (p.data||[]).forEach(x=>profiles[x.id]=x);
+  strip.innerHTML=stories.map(s=>{
+    const owner=profiles[s.user_id]?.full_name||profiles[s.user_id]?.username||"Story";
+    const avatar=profiles[s.user_id]?.avatar_url;
+    return `<div class="story" onclick="openStory('${esc(s.id)}')">
+      ${avatar?`<img class="avatar" src="${esc(avatar)}" alt="">`:`<div class="avatar">${esc(owner.slice(0,1))}</div>`}
+      ${esc(owner)}</div>`;
+  }).join("");
+  list.innerHTML=stories.map(s=>{
+    const owner=profiles[s.user_id]?.full_name||"ব্যবহারকারী";
+    const url=videoPublicUrl(s.media_path);
+    return `<div class="post"><b>${esc(owner)} · Story</b><p class="muted">২৪ ঘণ্টার মধ্যে মেয়াদ শেষ হবে</p>
+      <button onclick="openStory('${esc(s.id)}')">স্টোরি দেখুন</button>
+      ${s.user_id===currentUser.id?`<button class="smallbtn danger" onclick="deleteStory('${esc(s.id)}','${esc(s.media_path)}')">মুছুন</button>`:""}
+    </div>`;
+  }).join("");
+}
+
+async function openStory(storyId){
+  const {data,error}=await db.from("stories").select("*").eq("id",storyId).single();
+  if(error||!data) return notify("স্টোরি খোলা যায়নি।");
+  const url=await videoPublicUrl(data.media_path);
+  const isVideo=/\.(mp4|webm|mov|m4v)$/i.test(data.media_path||"");
+  const w=window.open("","_blank");
+  if(!w) return notify("ব্রাউজারে নতুন পেজ খোলার অনুমতি দিন।");
+  w.document.write(`<html><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;background:#111;color:white;display:grid;place-items:center;min-height:100vh">${isVideo?`<video src="${esc(url)}" controls autoplay style="max-width:100%;max-height:95vh"></video>`:`<img src="${esc(url)}" style="max-width:100%;max-height:95vh;object-fit:contain">`}</body></html>`);
+  w.document.close();
+}
+
+async function deleteStory(id,path){
+  if(!confirm("এই স্টোরিটি মুছবেন?")) return;
+  const {error}=await db.from("stories").delete().eq("id",id).eq("user_id",currentUser.id);
+  if(error) return notify(error.message);
+  await db.storage.from("videos").remove([path]);
+  await loadStories();
+}
+
+async function loadNotifications(){
+  const el=$("notificationsList");
+  if(!el) return;
+  el.innerHTML='<div class="panel">নোটিফিকেশন লোড হচ্ছে…</div>';
+  const {data,error}=await db.from("notifications").select("*")
+    .eq("user_id",currentUser.id).order("created_at",{ascending:false}).limit(50);
+  if(error){
+    el.innerHTML='<div class="panel">নোটিফিকেশন টেবিল বা RLS policy এখনো তৈরি নেই।</div>';
+    return;
+  }
+  el.innerHTML=(data||[]).map(n=>
+    `<div class="panel"><b>${esc(n.title||"নতুন নোটিফিকেশন")}</b><p>${esc(n.message||n.body||"")}</p>
+    <span class="muted">${esc(n.created_at?new Date(n.created_at).toLocaleString("bn-BD"):"")}</span></div>`
+  ).join("")||'<div class="panel">এখনো কোনো নোটিফিকেশন নেই।</div>';
+}
+
+async function loadProfile(){
+  if(!currentUser) return;
+  const {data,error}=await db.from("profiles").select("*")
+    .eq("id",currentUser.id).maybeSingle();
+  if(error) return notify("প্রোফাইল লোড হয়নি: "+error.message);
+  currentProfile=data||currentProfile;
+  if(!currentProfile) return;
+  $("profileName").textContent=currentProfile.full_name||"আপনার প্রোফাইল";
+  $("profileUsername").textContent=currentProfile.username?"@"+currentProfile.username:"";
+  $("profileBio").textContent=currentProfile.bio||"";
+  $("profileAvatar").src=currentProfile.avatar_url||"";
+  $("profileCover").style.backgroundImage=currentProfile.cover_url?`url("${currentProfile.cover_url}")`:"";
+  $("editName").value=currentProfile.full_name||"";
+  $("editUsername").value=currentProfile.username||"";
+  $("editBio").value=currentProfile.bio||"";
+  const {count}=await db.from("videos").select("*",{count:"exact",head:true}).eq("user_id",currentUser.id);
+  $("profileStats").textContent=`ভিডিও: ${count??0}`;
+}
+
+function editProfile(){
+  showPage("Profile");
+  $("editName").scrollIntoView({behavior:"smooth"});
+}
+
+async function saveProfile(){
+  const full_name=$("editName").value.trim();
+  const username=$("editUsername").value.trim().toLowerCase().replace(/[^a-z0-9_.]/g,"");
+  const bio=$("editBio").value.trim();
+  if(!full_name||!username) return notify("নাম ও ইউজারনেম দিন।");
+  try{
+    const avatar=$("avatarFile").files[0];
+    const cover=$("coverFile").files[0];
+    let avatar_url=currentProfile?.avatar_url||null;
+    let cover_url=currentProfile?.cover_url||null;
+    if(avatar) avatar_url=await uploadProfileImage(avatar,"avatars");
+    if(cover) cover_url=await uploadProfileImage(cover,"covers");
+    const row={id:currentUser.id,full_name,username,bio,avatar_url,cover_url};
+    const {data,error}=await db.from("profiles").upsert(row,{onConflict:"id"}).select().single();
+    if(error) throw error;
+    currentProfile=data;
+    $("avatarFile").value="";
+    $("coverFile").value="";
+    await loadProfile();
+    notify("প্রোফাইল আপডেট হয়েছে।");
+  }catch(e){notify("প্রোফাইল সেভ হয়নি: "+e.message);}
+}
+
+async function uploadProfileImage(file,folder){
+  if(!file.type.startsWith("image/")) throw new Error("ছবি ফাইল নির্বাচন করুন।");
+  const ext=(file.name.split(".").pop()||"jpg").replace(/[^a-zA-Z0-9]/g,"");
+  const path=`${currentUser.id}/${folder}_${Date.now()}.${ext}`;
+  const {error}=await db.storage.from("videos").upload(path,file,{upsert:false,contentType:file.type});
+  if(error) throw error;
+  return (await videoPublicUrl(path));
+}
+
+/* Restore an existing login session on page reload */
+db.auth.getSession().then(async({data,error})=>{
+  if(error) console.warn(error.message);
+  if(data?.session){
+    currentUser=data.session.user;
+    await startApp();
+  }else{
+    showAuth();
+  }
+});
+</script>
+</body>
+      </html>
+        
